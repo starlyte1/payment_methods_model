@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Payment Methods Showcase</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  transition: background 0.3s, color 0.3s;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+}
+:root {
+  --bg: #f0f0f0;
+  --text: #222;
+}
+.dark {
+  --bg: #121212;
+  --text: #f0f0f0;
+}
+.toggle-btn {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  background: #333;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  transition: background 0.3s;
+}
+.toggle-btn:hover {
+  background: #555;
+}
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1rem;
+  max-width: 800px;
+  width: 90%;
+  margin-top: 2rem;
+}
+.card {
+  background: white;
+  border-radius: 12px;
+  padding: 1rem;
+  text-align: center;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+.card:hover {
+  transform: translateY(-5px) scale(1.02);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+.card img {
+  width: 50px;
+  height: 50px;
+  margin-bottom: 0.5rem;
+}
+.modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  background: #fff;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 0 30px rgba(0,0,0,0.2);
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  z-index: 1000;
+  max-width: 300px;
+  width: 80%;
+  text-align: center;
+  opacity: 0;
+}
+.modal.show {
+  transform: translate(-50%, -50%) scale(1);
+  opacity: 1;
+}
+.modal.dark {
+  background: #222;
+  color: #fff;
+}
+.modal button {
+  margin-top: 1rem;
+  padding: 0.5rem 1rem;
+  border: none;
+  background: #333;
+  color: #fff;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background 0.3s;
+}
+.modal button:hover {
+  background: #555;
+}
+</style>
+</head>
+<body>
+<button class="toggle-btn" onclick="toggleDarkMode()">Toggle Dark/Light</button>
+<h1>Select Your Payment Method</h1>
+<div class="grid">
+  <div class="card" onclick="openModal('Mpesa')">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/3/34/M-Pesa_Logo.svg" alt="Mpesa" />
+    <div>Mpesa</div>
+  </div>
+  <div class="card" onclick="openModal('Crypto')">
+    <img src="https://cryptologos.cc/logos/bitcoin-btc-logo.png" alt="Crypto" />
+    <div>Crypto</div>
+  </div>
+  <div class="card" onclick="openModal('PayPal')">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/b/b5/PayPal.svg" alt="PayPal" />
+    <div>PayPal</div>
+  </div>
+  <div class="card" onclick="openModal('Mastercard')">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/0/04/Mastercard-logo.png" alt="Mastercard" />
+    <div>Mastercard</div>
+  </div>
+</div>
+<div id="modal" class="modal">
+  <h2 id="modalTitle"></h2>
+  <p>Proceed with this payment method?</p>
+  <button onclick="closeModal()">Close</button>
+</div>
+<script>
+function toggleDarkMode() {
+  document.body.classList.toggle('dark');
+  document.getElementById('modal').classList.toggle('dark');
+}
+function openModal(method) {
+  document.getElementById('modalTitle').innerText = method + ' Selected';
+  document.getElementById('modal').classList.add('show');
+}
+function closeModal() {
+  document.getElementById('modal').classList.remove('show');
+}
+</script>
+</body>
+</html>
